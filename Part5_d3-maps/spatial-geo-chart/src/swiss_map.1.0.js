@@ -99,8 +99,13 @@ function doPlot() {
             .attr("class", "canton")
             .attr("d", pathGenerator);
 
-        cant.on("mouseover", d => mouseover(citizens[0], d.id));
-        cant.on("mouseout", d => mouseout(citizens.columns[0], d.id));
+        // warning: API signature change between D3V5 and D3V6.
+        cant.on("mouseover", (event,d) => mouseover(citizens[0], d.id));
+        cant.on("mouseout", (event,d) => mouseout(citizens.columns[0], d.id));
+
+        // D3V5 version
+        //cant.on("mouseover", d => mouseover(d3.select("#" + d.id)));
+        //cant.on("mouseout", d => mouseout(d3.select("#" + d.id)));
 
         g.append("path")
             .datum(topojson.mesh(topology, topology.objects.cantons))
